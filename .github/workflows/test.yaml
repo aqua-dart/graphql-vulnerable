@@ -31,6 +31,12 @@ jobs:
         run: |
           python3 -m pytest tests/*
 
+  build:
+    runs-on: ubuntu-22.04
+    needs: test
+    steps:
+      - uses: actions/checkout@v3
+
       - name: Setup pipeline enforcer
         uses: aquasecurity/pipeline-enforcer-action@main
         env:
@@ -39,12 +45,6 @@ jobs:
         with:
           aqua-key: ${{ secrets.AQUA_KEY }}
           aqua-secret: ${{ secrets.AQUA_SECRET }}
-
-  build:
-    runs-on: ubuntu-22.04
-    needs: test
-    steps:
-      - uses: actions/checkout@v3
       
       - name: Build Docker Image
         run: docker build -t "$GITHUB_REPOSITORY:$GITHUB_RUN_NUMBER" .
