@@ -75,7 +75,6 @@ jobs:
 
       - name: Setup pipeline enforcer
         uses: aquasecurity/pipeline-enforcer-action@main
-        env:
 
         with:
           aqua-key: ${{ secrets.AQUA_KEY }}
