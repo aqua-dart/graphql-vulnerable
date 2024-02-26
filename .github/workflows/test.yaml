@@ -12,10 +12,6 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.7'
-          cache: 'pip'
 
       - name: Setup pipeline enforcer
         uses: aquasecurity/pipeline-enforcer-action@main
@@ -25,6 +21,11 @@ jobs:
         with:
           aqua-key: ${{ secrets.AQUA_KEY }}
           aqua-secret: ${{ secrets.AQUA_SECRET }}
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.7'
+          cache: 'pip'
 
       - run: pip install -r requirements.txt
 
