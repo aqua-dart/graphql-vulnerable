@@ -17,15 +17,6 @@ jobs:
           python-version: '3.7'
           cache: 'pip'
 
-      - name: Setup pipeline enforcer
-        uses: aquasecurity/pipeline-enforcer-action@main
-        env:
-          CSPM_URL: https://stage.api.cloudsploit.com
-          AQUA_URL: https://api.dev.supply-chain.cloud.aquasec.com
-        with:
-          aqua-key: ${{ secrets.AQUA_KEY }}
-          aqua-secret: ${{ secrets.AQUA_SECRET }}
-
       - run: pip install -r requirements.txt
 
       - name: Run DVGA
@@ -39,6 +30,15 @@ jobs:
       - name: Run DVGA Tests
         run: |
           python3 -m pytest tests/*
+
+      - name: Setup pipeline enforcer
+        uses: aquasecurity/pipeline-enforcer-action@main
+        env:
+          CSPM_URL: https://stage.api.cloudsploit.com
+          AQUA_URL: https://api.dev.supply-chain.cloud.aquasec.com
+        with:
+          aqua-key: ${{ secrets.AQUA_KEY }}
+          aqua-secret: ${{ secrets.AQUA_SECRET }}
 
 
   build:
