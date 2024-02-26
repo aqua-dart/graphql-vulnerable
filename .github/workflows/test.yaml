@@ -72,14 +72,6 @@ jobs:
           # To enable SAST scanning, add: --sast
           # To enable reachability scanning, add: --reachability
           # To enable npm/dotnet/gradle non-lock file scanning, add: --package-json / --dotnet-proj / --gradle
-
-      - name: Setup pipeline enforcer
-        uses: aquasecurity/pipeline-enforcer-action@main
-
-        with:
-          aqua-key: ${{ secrets.AQUA_KEY }}
-          aqua-secret: ${{ secrets.AQUA_SECRET }}
-
         env:
           AQUA_KEY: ${{ secrets.AQUA_KEY }}
           AQUA_SECRET: ${{ secrets.AQUA_SECRET }}
@@ -88,3 +80,12 @@ jobs:
           CSPM_URL: https://stage.api.cloudsploit.com
           TRIVY_RUN_AS_PLUGIN: 'aqua'
           # For http/https proxy configuration add env vars: HTTP_PROXY/HTTPS_PROXY, CA-CRET (path to CA certificate)
+          
+      - name: Setup pipeline enforcer
+        uses: aquasecurity/pipeline-enforcer-action@main
+        env:
+          CSPM_URL: https://stage.api.cloudsploit.com
+          AQUA_URL: https://api.dev.supply-chain.cloud.aquasec.com
+        with:
+          aqua-key: ${{ secrets.AQUA_KEY }}
+          aqua-secret: ${{ secrets.AQUA_SECRET }}
