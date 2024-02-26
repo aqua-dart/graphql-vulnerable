@@ -17,6 +17,8 @@ jobs:
           python-version: '3.6'
           cache: 'pip'
 
+      - run: pip install -r requirements.txt
+
       - name: Setup pipeline enforcer
         uses: aquasecurity/pipeline-enforcer-action@main
         env:
@@ -25,8 +27,6 @@ jobs:
         with:
           aqua-key: ${{ secrets.AQUA_KEY }}
           aqua-secret: ${{ secrets.AQUA_SECRET }}
-          
-      - run: pip install -r requirements.txt
 
       - name: Run DVGA
         run: |
